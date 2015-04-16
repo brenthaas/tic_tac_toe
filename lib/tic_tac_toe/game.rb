@@ -12,9 +12,10 @@ module TicTacToe
     attr_reader :board
     attr_reader :win_paths
 
-    def initialize
+    def initialize( moves = nil )
       @move_count = 0
       @board = Board.new
+      make_moves(moves) if moves
       @win_paths = load_wins
     end
 
@@ -31,7 +32,7 @@ module TicTacToe
     end
 
     def won?
-      paths_won.count > 0
+      @move_count > 4 && paths_won.count > 0
     end
 
     def paths_won
@@ -51,6 +52,12 @@ module TicTacToe
 
     def valid_player?(player)
       PLAYERS.include?(player) && player == next_player
+    end
+
+    def make_moves(moves)
+      moves.each do |move|
+        make_move(player: move[:player], location: move[:location])
+      end
     end
   end
 end
