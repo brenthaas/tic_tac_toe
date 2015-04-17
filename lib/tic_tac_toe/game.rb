@@ -14,9 +14,10 @@ module TicTacToe
 
     def initialize( moves = nil )
       @move_count = 0
+      @won = false
+      @win_paths = load_wins
       @board = Board.new
       make_moves(moves) if moves
-      @win_paths = load_wins
     end
 
     def make_move(player:, location:)
@@ -25,6 +26,7 @@ module TicTacToe
 
       @board[location] = player
       @move_count += 1
+      find_win
     end
 
     def next_player
@@ -32,17 +34,24 @@ module TicTacToe
     end
 
     def won?
-      @move_count > 4 && paths_won.count > 0
+      @won
     end
 
     def paths_won
       win_paths.select do |path|
-        plays = path.map{ |loc| @board[loc] }
+        plays = path.map{ |loc| @board[loc].player }
         PLAYERS.any? { |player| plays.count(player) == path.count }
       end
     end
 
     private
+
+    def find_win
+      if paths_won.count > 0
+        @won = true
+        paths_won.flatten.uniq.each { |loc| @board[loc].winner = true }
+      end
+    end
 
     def load_wins
       win_file = '../../config/wins.yml'

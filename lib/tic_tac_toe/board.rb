@@ -15,7 +15,7 @@ module TicTacToe
     def [](location)
       raise InvalidLocationError unless self.class.valid_location?(location)
 
-      @squares[LOCATIONS.index(location)].player
+      @squares[LOCATIONS.index(location)]
     end
 
     def []=(location, player)

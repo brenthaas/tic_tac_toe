@@ -26,4 +26,29 @@ describe TicTacToe::Square do
       }.to raise_error(TicTacToe::Square::AlreadyOccupiedError)
     end
   end
+
+  describe "#==" do
+    let(:player) { 'X' }
+    let(:other_square) { described_class.new }
+
+    context "when the same player occupies both squares" do
+      before do
+        subject.fill(player)
+        other_square.fill(player)
+      end
+
+      it { is_expected.to eq(other_square) }
+    end
+
+    context "when there are different players occupying each square" do
+      let(:other_player) { 'O' }
+
+      before do
+        subject.fill(player)
+        other_square.fill(other_player)
+      end
+
+      it { is_expected.not_to eq(other_square) }
+    end
+  end
 end

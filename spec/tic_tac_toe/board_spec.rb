@@ -16,7 +16,7 @@ describe TicTacToe::Board do
 
     it "assigns to a location" do
       subject[location] = player
-      expect(subject[location]).to eq player
+      expect(subject[location].player).to eq player
     end
   end
 

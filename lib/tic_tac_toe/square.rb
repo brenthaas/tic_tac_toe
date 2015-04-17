@@ -3,14 +3,23 @@ module TicTacToe
     class AlreadyOccupiedError < RuntimeError; end
 
     attr_reader :player
+    attr_accessor :winner
+
+    def to_s
+      player.to_s
+    end
 
     def empty?
-      @player.nil?
+      player.nil?
     end
 
     def fill(player)
       raise TicTacToe::Square::AlreadyOccupiedError unless empty?
       @player = player
+    end
+
+    def ==(other_square)
+      player == other_square.player
     end
   end
 end

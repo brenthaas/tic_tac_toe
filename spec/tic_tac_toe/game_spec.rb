@@ -41,6 +41,10 @@ describe TicTacToe::Game do
     it "has the right move_count" do
       expect(subject.move_count).to eq moves.count
     end
+
+    it "identifies if the game was won" do
+      expect(subject).to be_won
+    end
   end
 
   describe "#make_move" do
