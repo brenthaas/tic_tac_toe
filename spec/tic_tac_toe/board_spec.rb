@@ -20,6 +20,34 @@ describe TicTacToe::Board do
     end
   end
 
+  describe "#==" do
+    let(:moves) do
+      [{player: 'X', location: 'B2'}, {player: 'O', location: 'B3'}]
+    end
+    let(:other_board) { described_class.new }
+
+    before { moves.each { |mov| subject[mov[:location]] = mov[:player] } }
+
+    context "when the same moves have been made" do
+
+      before { moves.each { |mov| other_board[mov[:location]] = mov[:player] } }
+
+      it { is_expected.to eq(other_board) }
+    end
+
+    context "when there are different players occupying each square" do
+      let(:other_moves) do
+        [{player: 'X', location: 'A2'}, {player: 'O', location: 'B3'}]
+      end
+
+      before do
+        other_moves.each { |mov| other_board[mov[:location]] = mov[:player] }
+      end
+
+      it { is_expected.not_to eq(other_board) }
+    end
+  end
+
   describe "#valid_location?" do
     it "validates any location" do
       described_class::LOCATIONS.each do |loc|

@@ -25,6 +25,24 @@ describe TicTacToe::Game do
     end
   end
 
+  describe "initialize with moves" do
+    let(:moves) do
+      [
+        { player: 'X', location: 'B1' },
+        { player: 'O', location: 'A2' },
+        { player: 'X', location: 'B2' },
+        { player: 'O', location: 'A3' },
+        { player: 'X', location: 'B3' }
+      ]
+    end
+
+    subject { described_class.new(moves) }
+
+    it "has the right move_count" do
+      expect(subject.move_count).to eq moves.count
+    end
+  end
+
   describe "#make_move" do
     let(:player) { described_class::PLAYERS.first }
     let(:location) { TicTacToe::Board::LOCATIONS.first }

@@ -1,5 +1,7 @@
 module TicTacToe
   class Square
+    class AlreadyOccupiedError < RuntimeError; end
+
     attr_reader :player
 
     def empty?
@@ -9,9 +11,6 @@ module TicTacToe
     def fill(player)
       raise TicTacToe::Square::AlreadyOccupiedError unless empty?
       @player = player
-    end
-
-    class AlreadyOccupiedError < RuntimeError
     end
   end
 end
