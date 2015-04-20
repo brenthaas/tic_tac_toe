@@ -21,8 +21,8 @@ module TicTacToe
     end
 
     def make_move(player:, location:)
-      raise InvalidPlayerError unless valid_player?(player)
-      raise GameOverError if won? || @board.full?
+      raise InvalidPlayerError "Player #{player} invalid" unless valid_player?(player)
+      raise GameOverError "Game Over" if won? || @board.full?
 
       @board[location] = player
       @move_count += 1
