@@ -14,7 +14,7 @@ module TicTacToe
     end
 
     def fill(player)
-      raise TicTacToe::Square::AlreadyOccupiedError unless empty?
+      raise TicTacToe::Square::AlreadyOccupiedError.new, "Already Filled" unless empty?
       @player = player
     end
 
